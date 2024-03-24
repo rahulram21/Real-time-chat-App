@@ -1,8 +1,15 @@
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
-const Login = function({username, setUsername, room, setRoom}){
+const Login = function({username, setUsername, room, setRoom, socket}){
+    const navigate = useNavigate();
+    const joinRoom = () =>{
+        if(room !== '' && username !== ''){
+            socket.emit('join_room', {username, room});
+        }
+        navigate('./chat');
+    }
     return(
         <div class="flex justify-center items-center h-screen bg-indigo-600">
             <div class="w-96 p-6 shadow-lg rounded-md bg-slate-300">
@@ -19,7 +26,7 @@ const Login = function({username, setUsername, room, setRoom}){
                     <option value={'dharawi'}>Dharawi</option>
                     <option value={'publicroom'}>Rupublic</option>
                 </select>
-                <Link to="./chat"><button class="mt-3 w-full bg-blue-900 border-2 rounded-md border-white hover:bg-transparent text-white hover:text-black text-xl" >Enter</button></Link>
+                <button onClick={joinRoom} class="mt-3 w-full bg-blue-900 border-2 rounded-md border-white hover:bg-transparent text-white hover:text-black text-xl" >Enter</button>
             </form>
         </div>
       </div>

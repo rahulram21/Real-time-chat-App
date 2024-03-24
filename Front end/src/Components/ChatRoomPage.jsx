@@ -6,7 +6,7 @@
                 <ul id="user-list" class="space-y-2">
                     <li class="flex items-center">
                         <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                        <span>User 1</span>
+                        <span>{username}</span>
                     </li>
                     <li class="flex items-center">
                         <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
@@ -15,7 +15,7 @@
                 </ul>
             </div>
             <div id="chat-area" class="flex bg-[#BAA7F1] basis-3/4 flex-col p-6">
-                <h1 class="text-4xl font-semibold mb-6">Chat Room</h1>
+                <h1 class="text-4xl font-semibold mb-6">{room}</h1>
                 <div class="bg-[#FDE2FF] h-80 mb-4 overflow-y-auto p-4 rounded-md" id="messages">
                     {/* chat messages are displayed here */}
                     <div class="mb-2 flex items-center">
