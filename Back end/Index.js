@@ -10,6 +10,9 @@ app.use(cors()); //cors middleware
 const server = http.createServer(app);
 server.listen(4000, () => "Server is up and running");
 
+let chatRoom='';
+let allUsers=[];
+
 
 //setup cors origin to bypass SOP. Origin is broswer nav
 const io = new Server(server, {
@@ -28,6 +31,9 @@ io.on("connection", (socket) => {
         const {username, room} = data; //data sent from client to server using socket.emit('join_room',data)
         socket.join(room); //join the client to the specified {room}
     });
+
+    chatRoom=room;
+    allUsers.push({id: socket.id, username, room});
 
     let __createdTime__ = Date.now(); // timestamp
 
