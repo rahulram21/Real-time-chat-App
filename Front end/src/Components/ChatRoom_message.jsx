@@ -1,4 +1,8 @@
+import { useState, useEffect } from "react";
+
 const ChatRoom_message=function(){
+
+    const[message, setMessage] = useState('');
     return(
         <div class="bg-[#FDE2FF] h-80 mb-4 overflow-y-auto p-4 rounded-md" id="messages">
                     {/* chat messages are displayed here */}
