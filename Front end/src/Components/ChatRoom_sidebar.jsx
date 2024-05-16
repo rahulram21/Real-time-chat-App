@@ -13,6 +13,7 @@ const ChatRoom_sidebar = function(props){
                         <span>User 2</span>
                     </li>
                 </ul>
+                <button class="rounded-md p-3 h-9 bg-red-500 text-justify">Leave</button>
             </div>
     )
 };
