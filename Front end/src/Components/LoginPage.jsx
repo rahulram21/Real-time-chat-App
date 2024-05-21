@@ -8,7 +8,7 @@ const Login = function({username, setUsername, room, setRoom, socket}){
         if(room !== '' && username !== ''){
             socket.emit('join_room', {username, room});
         }
-        navigate('./chat');
+        navigate('./chat', { replace: true });
     }
     return(
         <div class="flex justify-center items-center h-screen bg-indigo-600">
@@ -17,6 +17,7 @@ const Login = function({username, setUsername, room, setRoom, socket}){
                 <form>
                 <input type='text' placeholder='Username..' class="mt-3 border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-grey-600 h-10 rounded-lg"
                 onChange={(e) => setUsername(e.target.value)}/>
+
                 <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-3"
                 onChange={(e) => setRoom(e.target.value)}>
                     <option>---Select Room---</option>
