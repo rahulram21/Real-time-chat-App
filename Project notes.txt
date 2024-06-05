@@ -1,0 +1,7 @@
+05-06-2024
+
+Db.js file consists of mongoose schema and imported the schema into Index.js.
+In Index.js, we are passing the data (username, room etc) to the schema and saving it to MongoDB driver using save() method.
+As per ChatGPT, we don't need to use http POST method to post the data to mongoDB since socket.io instance takes the data from client side and saves it to MongoDB. But I don't know how this can work since we have to send the data to Atlas for it to display there. Would the MongoDB driver do the job for us? If so, we were using the http POST method using express to retrieve data from local client to local server?
+
+I have to really review how http works and how it works on remote and local environments. Gotta review it first before fixing up the issue. Only then I can ask meaningful doubts in the community.

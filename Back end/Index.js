@@ -1,16 +1,25 @@
-
+require('dotenv').config();
 const express = require('express');
 const app = express();
 http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
 const CHAT_BOT = 'chatbot'
+const Message = require('./db');
+const { default: mongoose } = require('mongoose');
+
+//connect to mongoose
+const dbUrl = process.env.MONGODB_URL;
+mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
+.then(() => console.log('MongoDB connected !'))
+.catch((err) => console.log(err))
 
 app.use(cors()); //cors middleware
 
 const server = http.createServer(app);
+//trying out get request
 app.get('/', (req, res)=>{
-    res.send("Hello");
+    res.send("Hello This is 4000");
 })
 
 let chatRoom = '';
@@ -49,7 +58,23 @@ io.on('connection', (socket) => {
             username: CHAT_BOT,
             __createdTime__
         });
+
+
     });
+
+    socket.on('send_message', async (data) => {
+        const {username, room, message, __createdTime__} = data;
+        try{
+            const newMessage = new Message({username, room, message, __createdTime__});
+            const savedMessage = await newMessage.save();
+            //emit message to all clients in the given room
+            io.in(room).emit('received_message', savedMessage);
+        }
+        catch(err){
+            console.log("Error saving message : ", err);
+        }
+        
+    })
     
 })
 
