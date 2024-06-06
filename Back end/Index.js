@@ -67,7 +67,8 @@ io.on('connection', (socket) => {
         try{
             const newMessage = new Message({username, room, message, __createdTime__});
             const savedMessage = await newMessage.save();
-            //emit message to all clients in the given room
+
+            // emit message to all clients in the given room
             io.in(room).emit('received_message', savedMessage);
         }
         catch(err){
