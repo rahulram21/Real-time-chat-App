@@ -18,7 +18,7 @@ const ChatRoom_input = function({socket, username, room}){
             placeholder="Type your message here"
             onChange={(e) => setMessage(e.target.value)}
             value={message}></input>
-            <button class="bg-blue-500 text-white p-3 h-16 rounded-md" id="send-button" onClick={sent_message}>Send</button>
+            <button class="bg-blue-500 text-white p-3 h-16 rounded-md hover:bg-blue-400" id="send-button" onClick={sent_message}>Send</button>
         </div>
     )
 }

@@ -9,6 +9,7 @@ I have to really review how http works and how it works on remote and local envi
 06-06-2024
 Finally, the data is now pushing to MongoDB.
 Things to work on:
+    Getting messages from MongoDB
     Chatroom UI
     Chatroom sidebar
     Send button styling upon click event

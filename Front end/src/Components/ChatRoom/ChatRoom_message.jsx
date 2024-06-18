@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
-
-const ChatRoom_message=function({socket}){
+const ChatRoom_message = function({socket}){
 
         const[messageReceived, setMessageReceived] = useState([]);
 
@@ -19,11 +18,30 @@ const ChatRoom_message=function({socket}){
             })
             return () => socket.off('received_message');
         }, [socket]);
+
+        // Socket event handled by useEffect to get and display all the previous messages in the database
+        useEffect(() => {
+            socket.on('get_message', (lastMessages) => {
+                console.log('Last messages in room', JSON.parse(lastMessages));
+                lastMessages = JSON.parse(lastMessages);
+                lastMessages = sortMessagesByDate(lastMessages);
+                setMessageReceived((state) => [...lastMessages, ...state]);
+            })
+            return () => socket.off('get_message');
+        }, [socket])
         
         const formatDateFromTimestamp = (timestamp) =>{
             const date = new Date(timestamp);
             return date.toLocaleDateString();
         }
+        // sorting messages function
+        function sortMessagesByDate(data){
+            return data.sort(
+                (a, b) => parseInt(a.__createdTime__) - parseInt(b.__createdTime__)
+            )
+        };
+
+
     return(
         <div class="bg-[#FDE2FF] h-80 mb-4 overflow-y-auto p-4 rounded-md" id="messages">
                     {/* chat messages are displayed here */}
