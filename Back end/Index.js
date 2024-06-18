@@ -59,22 +59,35 @@ io.on('connection', (socket) => {
             __createdTime__
         });
 
+        // Get messages from MongoDB using find() method
+        socket.emit('get_message', async(room) => {
+            try{
+                const message = await Message.find({room});
+                //callback({status: 'success', data: message});   
+            }catch(err){
+                console.log('Error GET data from MongoDB', err);
+            }
+        });
 
     });
 
+    // Send messages to MongoDB using save() method
     socket.on('send_message', async (data) => {
         const {username, room, message, __createdTime__} = data;
         try{
             const newMessage = new Message({username, room, message, __createdTime__});
             const savedMessage = await newMessage.save();
-            //emit message to all clients in the given room
+
+            // emit message to all clients in the given room
             io.in(room).emit('received_message', savedMessage);
         }
         catch(err){
             console.log("Error saving message : ", err);
         }
         
-    })
+    });
+
+    
     
 })
 

@@ -25,15 +25,6 @@ const MessageSchema = mongoose.Schema(
 
 const messageModel = mongoose.model("Messages", MessageSchema);
 
-// async function mongoSaveMessage(username, room, message, __createdTime__){
-//     const newMessage = new messageModel({username, room, message, __createdTime__});
-//     try{
-//         const savedMessage = await newMessage.save();
-//         return savedMessage;
-//     }catch(err){
-//         throw err;
-//     }
-// }
 module.exports = messageModel;
 
 
